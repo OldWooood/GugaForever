@@ -20,7 +20,7 @@ GitHub 仓库：[https://github.com/OldWooood/GugaForever](https://github.com/Ol
 
 ## 本地开发
 
-需要 Node.js 22.23.4 或更新版本。
+需要 Node.js 24（最低 22.23.4）。
 
 ```bash
 npm install
