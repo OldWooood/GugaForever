@@ -1,0 +1,67 @@
+---
+import { Image } from "astro:assets";
+
+import type { Guga } from "../data/guga";
+import { url } from "../utils/url";
+import Icon from "./Icon.astro";
+
+interface Props {
+  guga: Guga;
+  hidden?: boolean;
+}
+
+const { guga, hidden = false } = Astro.props;
+
+const searchText = [
+  guga.name,
+  guga.handle,
+  guga.traits.join(" "),
+  guga.description,
+  guga.statusLabel,
+  guga.dateLabel
+]
+  .join(" ")
+  .toLowerCase();
+
+const imageWidths = [480, 720, 960, 1200].filter(
+  (width) => width <= guga.image.width
+);
+
+if (imageWidths.length === 0) {
+  imageWidths.push(guga.image.width);
+}
+---
+
+<a
+  class="guga-card"
+  href={url(`/guga/${guga.id}/`)}
+  data-id={guga.id}
+  data-status={guga.statusKey}
+  data-search={searchText}
+  hidden={hidden}
+>
+  <div class="guga-card__media" style={`--pos: ${guga.imagePosition ?? "50% 50%"}`}>
+    <Image
+      src={guga.image}
+      alt={guga.imageAlt}
+      widths={imageWidths}
+      sizes="(max-width: 720px) calc(100vw - 56px), (max-width: 1240px) 46vw, 580px"
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="tape" aria-hidden="true"></span>
+  </div>
+  <div class="guga-card__body">
+    <div class="guga-card__meta">
+      <span class={`status status--${guga.statusKey}`}>{guga.statusLabel}</span>
+      <time datetime={guga.date}>毕业 {guga.dateLabel}</time>
+    </div>
+    <h3>{guga.name}</h3>
+    <p class="handle">
+      <Icon name="bilibili" size={15} />
+      B站 @{guga.handle}
+    </p>
+    <p class="traits">{guga.traits.join(" / ")}</p>
+    <span class="card-link">翻开档案 <Icon name="arrow-up-right" size={16} /></span>
+  </div>
+</a>

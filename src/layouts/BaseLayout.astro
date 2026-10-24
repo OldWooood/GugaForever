@@ -1,0 +1,82 @@
+---
+import "../styles/global.css";
+
+import fontUrl from "../assets/fonts/xiaolai.woff2?url";
+import IconSprite from "../components/IconSprite.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { SITE } from "../config";
+import { absoluteUrl, url } from "../utils/url";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+  path?: string;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  image = "assets/images/og-cover.jpg",
+  imageAlt = "咕嘎永远：B站咕嘎停更纪念档案",
+  type = "website",
+  noindex = false,
+  path = "/"
+} = Astro.props;
+
+const canonical = absoluteUrl(path);
+const ogImage = image.startsWith("http") ? image : absoluteUrl(image);
+---
+
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f6f7f2" />
+
+    <link rel="icon" href={url("favicon.svg")} type="image/svg+xml" />
+    <link rel="sitemap" href={url("sitemap.xml")} type="application/xml" title="Sitemap" />
+    <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
+
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem("guga-theme");
+          var dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.theme = saved || (dark ? "dark" : "light");
+        } catch (error) {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <IconSprite />
+    <SiteHeader />
+    <slot />
+    <SiteFooter />
+    <script>
+      import "../scripts/theme";
+    </script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Xiaolai";
-  src: url("../fonts/xiaolai.woff2") format("woff2");
+  src: url("../assets/fonts/xiaolai.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -875,15 +875,6 @@ button {
   border-color: var(--accent-strong);
 }
 
-.reveal {
-  opacity: 0;
-  transition: opacity 0.7s var(--ease);
-}
-
-.reveal.is-visible {
-  opacity: 1;
-}
-
 .archive-empty {
   display: grid;
   justify-items: center;
@@ -1154,51 +1145,6 @@ button {
   height: 17px;
 }
 
-.detail-loading {
-  display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  gap: clamp(32px, 6vw, 80px);
-  align-items: start;
-}
-
-.skeleton {
-  border-radius: 14px;
-  background: var(--paper-2);
-  animation: pulse 1.7s ease-in-out infinite;
-}
-
-.skeleton--photo {
-  aspect-ratio: 4 / 5;
-  border-radius: var(--radius-card);
-}
-
-.skeleton-copy {
-  display: grid;
-  gap: 14px;
-  padding-top: 26px;
-}
-
-.skeleton--line {
-  height: 18px;
-  border-radius: 8px;
-}
-
-.skeleton--title {
-  height: 64px;
-  width: 72%;
-  margin: 6px 0 10px;
-}
-
-.skeleton--short {
-  width: 44%;
-}
-
-@keyframes pulse {
-  50% {
-    opacity: 0.55;
-  }
-}
-
 .detail__grid {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
@@ -1448,8 +1394,7 @@ button {
     min-height: clamp(350px, 44vw, 470px);
   }
 
-  .detail__grid,
-  .detail-loading {
+  .detail__grid {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     gap: 40px;
   }
@@ -1517,8 +1462,7 @@ button {
     justify-content: flex-start;
   }
 
-  .detail__grid,
-  .detail-loading {
+  .detail__grid {
     grid-template-columns: 1fr;
   }
 
@@ -1723,9 +1667,6 @@ button {
     font-size: 17px;
   }
 
-  .skeleton-copy {
-    display: none;
-  }
 }
 
 @media (max-width: 420px) {
@@ -1831,9 +1772,4 @@ button {
   .snow {
     display: none;
   }
-
-  .reveal {
-    opacity: 1;
-  }
-
 }

@@ -1,0 +1,36 @@
+---
+import { SITE } from "../config";
+import { url } from "../utils/url";
+import Icon from "./Icon.astro";
+---
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <a class="brand" href={url("/")} aria-label={`${SITE.name}首页`}>
+        <span class="brand__mark" aria-hidden="true">
+          <Icon name="penguin" size={26} />
+        </span>
+        <span class="brand__text">
+          <span class="brand__cn">{SITE.name}</span>
+          <span class="brand__en">{SITE.nameEn}</span>
+        </span>
+      </a>
+      <p class="footer__line">把它们留在互联网的一个角落。</p>
+    </div>
+    <div class="footer__meta">
+      <p>非官方粉丝档案。资料与影像来自 B站公开内容，版权归原 UP 主所有。</p>
+      <a
+        class="footer__github"
+        href={SITE.repoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub 仓库 <Icon name="brand-github" size={16} />
+      </a>
+      <a class="footer__top" href="#top">
+        回到顶部 <Icon name="arrow-up-right" size={16} />
+      </a>
+    </div>
+  </div>
+</footer>

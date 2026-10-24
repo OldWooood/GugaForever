@@ -1,0 +1,14 @@
+---
+import AboutSection from "../components/AboutSection.astro";
+import ArchiveSection from "../components/ArchiveSection.astro";
+import Hero from "../components/Hero.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout path="/">
+  <main id="main">
+    <Hero />
+    <ArchiveSection />
+    <AboutSection />
+  </main>
+</BaseLayout>

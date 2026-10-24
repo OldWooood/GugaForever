@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>毕业档案｜咕嘎永远</title>
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var id = params.get("id");
+        var basePath = window.location.pathname.replace(/guga\.html$/, "");
+
+        if (id && /^[a-z0-9-]+$/i.test(id)) {
+          window.location.replace(basePath + "guga/" + encodeURIComponent(id) + "/");
+          return;
+        }
+
+        window.location.replace(basePath);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>正在打开毕业档案……</p>
+    <p><a href="./">回到毕业档案</a></p>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+---
+import { SITE } from "../config";
+import { url } from "../utils/url";
+import Icon from "./Icon.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href={url("/")} aria-label={`${SITE.name}首页`}>
+      <span class="brand__mark" aria-hidden="true">
+        <Icon name="penguin" size={26} />
+      </span>
+      <span class="brand__text">
+        <span class="brand__cn">{SITE.name}</span>
+        <span class="brand__en">{SITE.nameEn}</span>
+      </span>
+    </a>
+    <nav class="nav__links" aria-label="主导航">
+      <a class="nav__link" href={url("/#archive")}>毕业档案</a>
+      <a class="nav__link" href={url("/#about")}>关于这里</a>
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>

@@ -22,16 +22,13 @@ except ImportError:
 
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE_FILES = [
-    ROOT / "index.html",
-    ROOT / "guga.html",
-    ROOT / "404.html",
-    ROOT / "assets" / "js" / "data.js",
-    ROOT / "assets" / "js" / "app.js",
-    ROOT / "assets" / "js" / "guga.js",
-    ROOT / "assets" / "css" / "style.css",
-]
-OUTPUT = ROOT / "assets" / "fonts" / "xiaolai.woff2"
+SOURCE_FILES = sorted(
+    path
+    for path in (ROOT / "src").rglob("*")
+    if path.is_file() and path.suffix in {".astro", ".ts", ".js", ".css", ".html"}
+)
+SOURCE_FILES.extend((ROOT / "public").glob("*.html"))
+OUTPUT = ROOT / "src" / "assets" / "fonts" / "xiaolai.woff2"
 
 # ASCII plus common Chinese punctuation and a few symbols used in the UI.
 EXTRA = set(string.printable)

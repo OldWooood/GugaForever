@@ -1,0 +1,103 @@
+---
+import { PAGE_SIZE, STATUS_FILTERS } from "../config";
+import { gugas } from "../data/guga";
+import GugaCard from "./GugaCard.astro";
+import Icon from "./Icon.astro";
+
+const counts = {
+  all: gugas.length,
+  stopped: gugas.filter((guga) => guga.statusKey === "stopped").length,
+  finished: gugas.filter((guga) => guga.statusKey === "finished").length,
+  away: gugas.filter((guga) => guga.statusKey === "away").length
+};
+
+const initialPageItems = gugas.slice(0, PAGE_SIZE);
+---
+
+<section class="section archive" id="archive" aria-labelledby="archiveTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-head__text">
+        <h2 id="archiveTitle">毕业档案</h2>
+        <p>每一张卡片，都通向它自己的小房间。</p>
+      </div>
+    </div>
+
+    <div class="archive-toolbar">
+      <label class="search-field" for="archiveSearch">
+        <Icon name="search" size={18} />
+        <span class="sr-only">搜索档案</span>
+        <input
+          id="archiveSearch"
+          type="search"
+          placeholder="搜索名字、UP主或特点"
+          autocomplete="off"
+          spellcheck="false"
+          aria-controls="archiveGrid"
+        />
+      </label>
+      <div class="filters" id="filters" role="group" aria-label="筛选档案">
+        <button
+          class="filter"
+          type="button"
+          data-filter="all"
+          aria-controls="archiveGrid"
+          aria-pressed="true"
+        >
+          全部 <span data-count="all">{counts.all}</span>
+        </button>
+        {
+          STATUS_FILTERS.slice(1).map((filter) => (
+            <button
+              class="filter"
+              type="button"
+              data-filter={filter.key}
+              aria-controls="archiveGrid"
+              aria-pressed="false"
+              hidden={counts[filter.key] === 0}
+            >
+              {filter.label} <span data-count={filter.key}>{counts[filter.key]}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class:list={["archive-grid", initialPageItems.length === 1 && "is-single"]}
+      id="archiveGrid"
+    >
+      {
+        gugas.map((guga, index) => (
+          <GugaCard guga={guga} hidden={index >= PAGE_SIZE} />
+        ))
+      }
+    </div>
+
+    <div class="archive-empty" id="archiveEmpty" hidden>
+      <Icon name="snowflake" size={32} />
+      <p>没有找到匹配的咕嘎。换个关键词或筛选方式看看。</p>
+    </div>
+
+    <nav class="pagination" id="pagination" aria-label="档案分页" hidden>
+      <button class="page-btn" type="button" id="prevPage" disabled>上一页</button>
+      <div class="page-numbers" id="pageNumbers"></div>
+      <button class="page-btn" type="button" id="nextPage">下一页</button>
+    </nav>
+
+    <noscript>
+      <style>
+        .archive-toolbar { display: none !important; }
+        .guga-card[hidden] { display: block !important; }
+        .pagination { display: none !important; }
+      </style>
+      <div class="noscript-list">
+        <p>搜索、筛选和分页需要开启 JavaScript。下面已经列出全部档案。</p>
+      </div>
+    </noscript>
+  </div>
+</section>
+
+<script>
+  import "../scripts/archive";
+</script>

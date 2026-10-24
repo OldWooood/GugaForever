@@ -1,0 +1,23 @@
+---
+import Icon from "../components/Icon.astro";
+import { url } from "../utils/url";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="走丢了｜咕嘎永远"
+  description="页面可能搬走了，也可能从来没有在这里住过。"
+  noindex
+  path="/404.html"
+>
+  <main id="main" class="detail-page">
+    <div class="wrap">
+      <section class="detail-error" aria-labelledby="errorTitle">
+        <Icon name="snowflake" size={52} />
+        <h1 id="errorTitle">这只咕嘎走丢了</h1>
+        <p>页面可能搬走了，也可能从来没有在这里住过。先回毕业档案看看吧。</p>
+        <a class="btn btn--primary" href={url("/#archive")}>回到毕业档案</a>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

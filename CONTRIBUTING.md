@@ -1,6 +1,6 @@
 # 参与贡献
 
-谢谢你想帮这些咕嘎留一页档案。这个项目是纯静态站点，不需要构建工具，改数据、放图片、跑一下本地预览就可以。
+谢谢你想帮这些咕嘎留一页档案。这个项目是一个 Astro 静态站点，改数据、放图片、跑一下本地检查和构建就可以。
 
 ## 收录标准
 
@@ -18,20 +18,21 @@
 ## 新增一只咕嘎
 
 1. Fork 仓库，新建一个分支。
-2. 打开 `assets/js/data.js`，复制一份现有对象，修改字段。
-3. 把图片放进 `assets/images/`，建议压缩成 WebP。
+2. 把图片放进 `src/assets/images/`，建议压缩成 WebP。
+3. 在 `src/data/guga.ts` 顶部导入图片，再复制一份现有对象修改字段。
 4. 更新 README 的「当前收录」表。
-5. 本地打开首页和详情页检查。
+5. 运行 `npm install`、`npm run dev`，检查首页和详情页。
 6. 提交 PR，填写 `.github/PULL_REQUEST_TEMPLATE.md` 里的检查项。
 
 ### 数据字段
 
-必填字段和说明在 README 的「添加或修改一只咕嘎」里。几个容易漏的点：
+字段和示例在 README 的「添加或修改一只咕嘎」里。几个容易漏的点：
 
-- `id` 不能和已有条目重复。
+- `id` 不能和已有条目重复，它会成为 `/guga/<id>/` 的地址。
 - `statusKey` 目前只应使用 `stopped`。不要为了凑分类把仍在更新的账号写成 `finished` 或 `away`。
-- `date` 用 `YYYY-MM-DD`，`dateLabel` 用 `YYYY.MM.DD`。
+- `date` 用 `YYYY-MM-DD`，`dateLabel` 用 `YYYY.MM.DD`，`dateHuman` 用「2026 年 10 月 24 日」这种格式。
 - `spaceUrl` 和 `farewellUrl` 都要是 B站链接。
+- `image` 和 `imageLarge` 是导入的图片对象，不是字符串路径。卡片图和详情图可以指向同一张，也可以分开。
 - `imageAlt` 写具体画面，不要只写「图片」。
 - 卡片和详情页使用不同画面时，加 `detailAlt`。
 - `credit` 要写出处，例如「视频封面来自 B站 @某某」。
@@ -41,6 +42,7 @@
 
 - 卡片图建议 1200px 宽，详情图建议 1800px 宽。
 - 优先 WebP，质量 80 到 85。
+- Astro 会在构建时按 `widths` 生成响应式尺寸，不需要手动准备多份。
 - 不要裁掉来源水印后再假装没有来源。
 - 不要使用无法确认来源的转载图。
 - 如果原作者希望撤下图片，请先撤下，再讨论替代方案。
@@ -53,22 +55,33 @@
 python3 tools/subset-font.py /path/to/Xiaolai-Regular.ttf
 ```
 
-需要先安装 `fonttools` 和 `brotli`。如果本地没有完整字体，也可以在 PR 里说明，维护者会补。
+需要先安装 `fonttools` 和 `brotli`。脚本会把子集写到 `src/assets/fonts/xiaolai.woff2`。如果本地没有完整字体，也可以在 PR 里说明，维护者会补。
 
 ## 本地检查
 
 ```bash
-python3 -m http.server 4173
+npm install
+npm run dev
 ```
 
-打开 `http://127.0.0.1:4173/`，至少检查：
+打开终端里给出的地址，至少检查：
 
 - 首页卡片数量、搜索、筛选和分页是否正常。
 - 新咕嘎的详情页能打开，图片、B站链接、影片链接都正常。
+- 旧的 `guga.html?id=...` 链接能跳到新地址。
 - 手机宽度下没有横向滚动。
 - 浅色和深色主题都能读。
 - 404 页面还能回到首页。
 - 控制台没有报错。
+
+提交前再跑一次：
+
+```bash
+npm run check
+npm run build
+```
+
+构建会同时检查 TypeScript、Astro 组件和图片处理。构建结果在 `dist/`，不需要提交。
 
 ## 修改或撤下资料
 
@@ -78,7 +91,7 @@ python3 -m http.server 4173
 - 需要改什么。
 - 公开依据或原视频链接。
 
-如果账号已经复更，请把它从 `assets/js/data.js` 移出。停更档案不应该继续挂着仍在更新的账号。
+如果账号已经复更，请把它从 `src/data/guga.ts` 移出。停更档案不应该继续挂着仍在更新的账号。
 
 ## PR 标题示例
 
@@ -89,8 +102,8 @@ python3 -m http.server 4173
 
 ## 提交前
 
-- 不要提交完整字体文件，只提交 `assets/fonts/xiaolai.woff2` 子集。
-- 不要提交 `.DS_Store`、临时截图或本地服务器日志。
+- 不要提交完整字体文件，只提交 `src/assets/fonts/xiaolai.woff2` 子集。
+- 不要提交 `.astro/`、`node_modules/`、`dist/`、`.DS_Store`、临时截图或本地服务器日志。
 - 不要把仍在更新的账号写进停更档案。
 - 不要把「系列完结」当成「账号停更」。
 - 如果改了数据，记得同步 README。

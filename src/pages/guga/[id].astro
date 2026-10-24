@@ -1,0 +1,150 @@
+---
+import { Image } from "astro:assets";
+
+import Icon from "../../components/Icon.astro";
+import { getGuga, getGugaNeighbors, gugas } from "../../data/guga";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { absoluteAsset, url } from "../../utils/url";
+
+export function getStaticPaths() {
+  return gugas.map((guga) => ({
+    params: { id: guga.id }
+  }));
+}
+
+const { id } = Astro.params;
+const guga = getGuga(id ?? "");
+
+if (!guga) {
+  throw new Error(`Unknown guga id: ${id}`);
+}
+
+const neighbors = getGugaNeighbors(guga.id)!;
+const title = `${guga.name}｜毕业档案｜咕嘎永远`;
+const imageSrc = absoluteAsset(guga.imageLarge.src);
+const detailWidths = [480, 720, 960, 1200].filter(
+  (width) => width <= guga.imageLarge.width
+);
+
+if (detailWidths.length === 0) {
+  detailWidths.push(guga.imageLarge.width);
+}
+---
+
+<BaseLayout
+  title={title}
+  description={guga.description}
+  image={imageSrc}
+  imageAlt={guga.detailAlt ?? guga.imageAlt}
+  type="article"
+  path={`/guga/${guga.id}/`}
+>
+  <main id="main" class="detail-page">
+    <div class="wrap">
+      <a class="back-link" href={url("/#archive")}>
+        <Icon name="arrow-left" size={18} />
+        回到毕业档案
+      </a>
+
+      <article class="detail">
+        <div class="detail__grid">
+          <div class="detail__media">
+            <figure class="detail-photo">
+              <span class="tape" aria-hidden="true"></span>
+              <Image
+                src={guga.imageLarge}
+                alt={guga.detailAlt ?? guga.imageAlt}
+                widths={detailWidths}
+                sizes="(max-width: 560px) calc(100vw - 52px), (max-width: 820px) 500px, (max-width: 1240px) 44vw, 550px"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                style={`object-position: ${guga.imagePosition ?? "50% 50%"}`}
+              />
+            </figure>
+            <p class="detail-credit">{guga.credit}</p>
+          </div>
+
+          <div class="detail__copy">
+            <p class="detail-status">{guga.statusLabel}档案</p>
+            <h1>{guga.name}</h1>
+            <p class="detail-handle">B站 @{guga.handle}</p>
+            <p class="detail-lead">{guga.description}</p>
+
+            <dl class="facts">
+              <div class="fact">
+                <dt>原地</dt>
+                <dd>
+                  <a href={guga.spaceUrl} target="_blank" rel="noopener noreferrer">
+                    <Icon name="bilibili" size={16} />
+                    B站 @{guga.handle}
+                  </a>
+                </dd>
+              </div>
+              <div class="fact">
+                <dt>毕业时间</dt>
+                <dd>{guga.dateHuman}</dd>
+              </div>
+              <div class="fact">
+                <dt>告别方式</dt>
+                <dd>{guga.statusLabel}</dd>
+              </div>
+              <div class="fact fact--wide">
+                <dt>特点</dt>
+                <dd>{guga.traits.join(" / ")}</dd>
+              </div>
+              <div class="fact fact--wide">
+                <dt>最后的身影</dt>
+                <dd>《{guga.farewellTitle}》</dd>
+              </div>
+            </dl>
+
+            <div class="detail-actions">
+              <a
+                class="btn btn--primary"
+                href={guga.farewellUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                看最后一支影片
+                <Icon name="player-play" size={18} />
+              </a>
+              <a
+                class="btn btn--ghost"
+                href={guga.spaceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                去它的原地
+                <Icon name="bilibili" size={18} />
+              </a>
+            </div>
+
+            {
+              guga.quote && (
+                <blockquote class="detail-quote">
+                  <p>{guga.quote}</p>
+                  <footer>{guga.quoteSource}</footer>
+                </blockquote>
+              )
+            }
+
+            <p class="detail-note">{guga.note}</p>
+            <div class="status-note">{guga.statusNote}</div>
+          </div>
+        </div>
+
+        <nav class="pager" aria-label="档案翻页">
+          <a class="pager__link pager__link--prev" href={url(`/guga/${neighbors.prev.id}/`)}>
+            <span class="pager__label">上一只</span>
+            <span class="pager__name">{neighbors.prev.name}</span>
+          </a>
+          <a class="pager__link pager__link--next" href={url(`/guga/${neighbors.next.id}/`)}>
+            <span class="pager__label">下一只</span>
+            <span class="pager__name">{neighbors.next.name}</span>
+          </a>
+        </nav>
+      </article>
+    </div>
+  </main>
+</BaseLayout>

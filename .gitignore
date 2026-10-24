@@ -1,6 +1,11 @@
 .DS_Store
 .venv/
+node_modules/
+.astro/
 dist/
 _site/
+*.log
+.env
+.env.*
 tools/Xiaolai-Regular.ttf
 *.ttf
