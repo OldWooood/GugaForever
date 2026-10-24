@@ -2,6 +2,8 @@
 
 一个非官方的 B站咕嘎停更纪念档案。只收已经确认停更的咕嘎，留下它们的特点、原地、毕业时间和最后出现的影片。
 
+线上地址：[https://oldwooood.github.io/GugaForever/](https://oldwooood.github.io/GugaForever/)
+
 站点是纯静态页面，不需要构建工具，可以直接部署到 GitHub Pages。
 
 ## 本地预览
