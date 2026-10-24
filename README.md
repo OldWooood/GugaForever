@@ -133,7 +133,7 @@ python3 tools/subset-font.py /path/to/Xiaolai-Regular.ttf
 ## 图标与图片
 
 - 导航和界面图标：[Tabler Icons](https://tabler.io/icons)，MIT。
-- 品牌标志和 favicon：本站自绘的「企鹅服小女孩 + 毕业帽」图形，不是现成图标库素材。
+- 品牌标志和 favicon：AI 生成的「企鹅服小女孩 + 毕业帽」形象，本站做了头部裁切和贴纸样式，不是现成图标库素材。
 - B站图标：[Simple Icons](https://simpleicons.org/)，CC0。
 - 分享封面：`public/assets/images/og-cover.jpg`。
 - 页面图片：`src/assets/images/`，由 Astro 在构建时优化。

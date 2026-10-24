@@ -1,7 +1,9 @@
 ---
+import { Image } from "astro:assets";
+
+import brandHead from "../assets/images/guga-brand-head.png";
 import { SITE } from "../config";
 import { url } from "../utils/url";
-import Icon from "./Icon.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 ---
 
@@ -9,7 +11,14 @@ import ThemeToggle from "./ThemeToggle.astro";
   <div class="wrap nav">
     <a class="brand" href={url("/")} aria-label={`${SITE.name}首页`}>
       <span class="brand__mark" aria-hidden="true">
-        <Icon name="guga" size={26} />
+        <Image
+          src={brandHead}
+          alt=""
+          width={96}
+          height={96}
+          loading="eager"
+          decoding="async"
+        />
       </span>
       <span class="brand__text">
         <span class="brand__cn">{SITE.name}</span>
