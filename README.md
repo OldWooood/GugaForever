@@ -89,6 +89,7 @@ import newGugaDetail from "../assets/images/new-guga-1800.webp";
   imageLarge: newGugaDetail,   // 详情图，导入的图片对象
   imageAlt: "图片替代文字",
   detailAlt: "详情页图片替代文字", // 可选
+  detailAspect: "4 / 3",       // 可选，横图用 4 / 3，竖图省略（默认 4 / 5）
   imagePosition: "50% 48%",    // object-position
   credit: "视频封面来自 B站 @昵称",
   farewellTitle: "告别作品标题",
@@ -111,6 +112,8 @@ import newGugaDetail from "../assets/images/new-guga-1800.webp";
 
 图片是本地导入的 `ImageMetadata`，不要写成字符串路径。Astro 会根据 `widths` 和 `sizes` 自动生成不同尺寸和 `srcset`，不需要再手动准备多份图片。
 
+详情页不要把横图硬裁成竖图。横图建议写 `detailAspect: "4 / 3"`，竖图可以省略，默认是 `4 / 5`。
+
 ## 字体
 
 本站全站使用 [小赖字体 / Xiaolai Font](https://github.com/lxgw/kose-font)，作者 LXGW，基于濑户字体，采用 SIL Open Font License 1.1。字体许可证在 `public/assets/fonts/OFL.txt`。
@@ -130,7 +133,7 @@ python3 tools/subset-font.py /path/to/Xiaolai-Regular.ttf
 ## 图标与图片
 
 - 导航和界面图标：[Tabler Icons](https://tabler.io/icons)，MIT。
-- 企鹅标志和 favicon：本站自绘的简单企鹅图形。
+- 品牌标志和 favicon：本站自绘的「企鹅兜帽小女孩 + 毕业帽」图形，不是现成图标库素材。
 - B站图标：[Simple Icons](https://simpleicons.org/)，CC0。
 - 分享封面：`public/assets/images/og-cover.jpg`。
 - 页面图片：`src/assets/images/`，由 Astro 在构建时优化。

@@ -34,6 +34,8 @@ export interface Guga {
   imageLarge: ImageMetadata;
   imageAlt: string;
   detailAlt?: string;
+  /** 详情页图片比例，横图建议 4 / 3，竖图默认 4 / 5 */
+  detailAspect?: string;
   imagePosition?: string;
   credit: string;
   farewellTitle: string;
@@ -63,6 +65,7 @@ export const gugas: Guga[] = [
     image: milk1200,
     imageLarge: milk1800,
     imageAlt: "奶瓶小咕嘎抱着奶瓶喝奶的近景",
+    detailAspect: "4 / 3",
     imagePosition: "50% 48%",
     credit: "视频封面来自 B站 @我的猫叫缘缘",
     farewellTitle: "由于个人原因，咕嘎要跟大家说再见了（停更）",
@@ -88,6 +91,7 @@ export const gugas: Guga[] = [
     image: blueDogCard,
     imageLarge: blueDogPortrait,
     imageAlt: "蓝色企鹅服的小蓝嘎趴在狗狗背上",
+    detailAspect: "4 / 5",
     imagePosition: "50% 45%",
     credit: "视频画面来自 B站 @布鲁小嘎嘎",
     farewellTitle: "也许这一次，是真的告别了",
@@ -116,6 +120,7 @@ export const gugas: Guga[] = [
     imageLarge: staysafeDetail,
     imageAlt: "掌心大小的咕嘎师傅戴着企鹅帽子和黄围巾",
     detailAlt: "两只小企鹅牵着手，走上发光的星梯",
+    detailAspect: "4 / 3",
     imagePosition: "50% 50%",
     credit: "视频封面来自 B站 @StaySafeForever",
     farewellTitle: "永别啦！再也不见啦咕咕嘎嘎！",

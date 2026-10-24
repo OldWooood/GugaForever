@@ -20,7 +20,7 @@
 - [ ] B站原地和影片链接可以打开
 - [ ] 图片已压缩为 WebP，并在 `credit` 里写了来源
 - [ ] 图片已放入 `src/assets/images/`，并在 `src/data/guga.ts` 里导入
-- [ ] 图片有具体的 `imageAlt`，需要时写了 `detailAlt`
+- [ ] 图片有具体的 `imageAlt`，需要时写了 `detailAlt`；横图已设置 `detailAspect: "4 / 3"`
 - [ ] 首页搜索、筛选、分页、详情页、手机宽度、浅色和深色都检查过
 - [ ] 旧的 `guga.html?id=...` 链接能跳到新的 `/guga/<id>/`
 - [ ] 更新了 README 的「当前收录」表

@@ -49,7 +49,10 @@ if (detailWidths.length === 0) {
       <article class="detail">
         <div class="detail__grid">
           <div class="detail__media">
-            <figure class="detail-photo">
+            <figure
+              class="detail-photo"
+              style={`--detail-ratio: ${guga.detailAspect ?? "4 / 5"}`}
+            >
               <span class="tape" aria-hidden="true"></span>
               <Image
                 src={guga.imageLarge}
