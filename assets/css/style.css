@@ -584,7 +584,7 @@ button {
   align-items: flex-end;
   justify-content: space-between;
   gap: 28px;
-  margin-bottom: 40px;
+  margin-bottom: 26px;
 }
 
 .section-head__text h2 {
@@ -601,6 +601,61 @@ button {
   color: var(--ink-2);
   font-size: 15px;
   line-height: 1.85;
+}
+
+.archive-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 28px;
+  margin-bottom: 32px;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(100%, 360px);
+  height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--card);
+  color: var(--ink-2);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.search-field:focus-within {
+  border-color: var(--accent-strong);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.search-field .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.search-field input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.5;
+  appearance: none;
+}
+
+.search-field input::placeholder {
+  color: var(--ink-2);
+  opacity: 0.85;
+}
+
+.search-field input::-webkit-search-cancel-button {
+  cursor: pointer;
 }
 
 .filters {
@@ -677,17 +732,11 @@ button {
   --shift: 46px;
 }
 
-.archive-grid > .guga-card:last-child:nth-child(odd) {
-  grid-column: 1 / -1;
-  width: min(100%, 660px);
-  justify-self: center;
-  --shift: 0px;
-}
-
 .archive-grid.is-single {
   grid-template-columns: minmax(0, 660px);
   justify-content: center;
   padding-bottom: 0;
+  margin-bottom: 32px;
 }
 
 .archive-grid.is-single .guga-card {
@@ -848,6 +897,61 @@ button {
   color: var(--accent-strong);
 }
 
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 0;
+}
+
+.page-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.page-btn {
+  min-width: 42px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.page-btn--number {
+  padding: 0 12px;
+}
+
+.page-btn:hover:not(:disabled) {
+  border-color: var(--accent-strong);
+  background: var(--paper-2);
+}
+
+.page-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.page-btn[aria-current="page"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #1c2a30;
+}
+
+.page-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
 .noscript-list {
   margin-top: 28px;
   padding: 20px 22px;
@@ -944,6 +1048,10 @@ button {
 }
 
 .about__more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 22px;
   margin: 32px 0 0;
 }
 
@@ -999,7 +1107,8 @@ button {
   margin: 0;
 }
 
-.footer__top {
+.footer__top,
+.footer__github {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -1010,7 +1119,12 @@ button {
   transition: border-color 0.2s var(--ease);
 }
 
-.footer__top:hover {
+.footer__github {
+  margin-right: 18px;
+}
+
+.footer__top:hover,
+.footer__github:hover {
   border-color: var(--accent-strong);
 }
 
@@ -1388,6 +1502,17 @@ button {
     gap: 20px;
   }
 
+  .archive-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .search-field {
+    width: 100%;
+    max-width: 420px;
+  }
+
   .filters {
     justify-content: flex-start;
   }
@@ -1486,7 +1611,22 @@ button {
   }
 
   .section-head {
-    margin-bottom: 30px;
+    margin-bottom: 22px;
+  }
+
+  .archive-toolbar {
+    margin-bottom: 26px;
+  }
+
+  .pagination {
+    gap: 6px;
+    margin-top: 28px;
+  }
+
+  .page-btn {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 13px;
   }
 
   .section-head__text h2 {
@@ -1499,10 +1639,8 @@ button {
     padding-bottom: 0;
   }
 
-  .archive-grid > .guga-card:last-child:nth-child(odd) {
-    grid-column: auto;
-    width: auto;
-    justify-self: stretch;
+  .archive-grid.is-single {
+    margin-bottom: 0;
   }
 
   .guga-card {

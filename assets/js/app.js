@@ -65,14 +65,29 @@
     return;
   }
 
+  var PAGE_SIZE = 2;
   var filterButtons = Array.prototype.slice.call(
     document.querySelectorAll("[data-filter]")
   );
+  var searchInput = document.getElementById("archiveSearch");
   var emptyState = document.getElementById("archiveEmpty");
+  var pagination = document.getElementById("pagination");
+  var pageNumbers = document.getElementById("pageNumbers");
+  var prevPageButton = document.getElementById("prevPage");
+  var nextPageButton = document.getElementById("nextPage");
+  var archiveSection = document.getElementById("archive");
+
   var liveRegion = document.createElement("p");
   liveRegion.className = "sr-only";
   liveRegion.setAttribute("aria-live", "polite");
   document.body.appendChild(liveRegion);
+
+  var currentFilter = "all";
+  var currentPage = 1;
+  var searchQuery = searchInput ? searchInput.value.trim().toLowerCase() : "";
+  var totalPages = 1;
+  var firstRender = true;
+  var cards = [];
 
   function escapeHtml(value) {
     return String(value)
@@ -99,6 +114,8 @@
     return (
       '<a class="guga-card reveal" href="guga.html?id=' +
       encodeURIComponent(guga.id) +
+      '" data-id="' +
+      escapeHtml(guga.id) +
       '" data-status="' +
       escapeHtml(guga.statusKey) +
       '">' +
@@ -145,19 +162,61 @@
   }
 
   grid.innerHTML = window.GUGAS.map(cardTemplate).join("");
+  cards = Array.prototype.slice.call(grid.querySelectorAll(".guga-card"));
 
-  var cards = Array.prototype.slice.call(grid.querySelectorAll(".guga-card"));
   var counters = document.querySelectorAll("[data-count]");
 
-  function updateCounts() {
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -4% 0px" }
+    );
+    cards.forEach(function (card) {
+      observer.observe(card);
+    });
+  } else {
+    cards.forEach(function (card) {
+      card.classList.add("is-visible");
+    });
+  }
+
+  function matchesSearch(guga) {
+    if (!searchQuery) {
+      return true;
+    }
+    var haystack = [
+      guga.name,
+      guga.handle,
+      guga.traits.join(" "),
+      guga.description,
+      guga.statusLabel,
+      guga.dateLabel
+    ]
+      .join(" ")
+      .toLowerCase();
+    return haystack.indexOf(searchQuery) !== -1;
+  }
+
+  function countFor(matches, key) {
+    if (key === "all") {
+      return matches.length;
+    }
+    return matches.filter(function (guga) {
+      return guga.statusKey === key;
+    }).length;
+  }
+
+  function updateCounts(matches) {
     counters.forEach(function (counter) {
       var key = counter.getAttribute("data-count");
-      var count =
-        key === "all"
-          ? window.GUGAS.length
-          : window.GUGAS.filter(function (guga) {
-              return guga.statusKey === key;
-            }).length;
+      var count = countFor(matches, key);
       counter.textContent = String(count);
 
       var button = counter.closest("[data-filter]");
@@ -167,63 +226,142 @@
     });
   }
 
-  updateCounts();
+  function renderPagination() {
+    if (!pagination || !pageNumbers) {
+      return;
+    }
 
-  function applyFilter(filter) {
-    var visible = 0;
-    cards.forEach(function (card) {
-      var show = filter === "all" || card.getAttribute("data-status") === filter;
-      card.hidden = !show;
-      if (show) {
-        visible += 1;
-        card.classList.add("is-visible");
-      }
-    });
+    pagination.hidden = totalPages <= 1;
+    prevPageButton.disabled = currentPage <= 1;
+    nextPageButton.disabled = currentPage >= totalPages;
+    pageNumbers.innerHTML = "";
+
+    if (totalPages <= 1) {
+      return;
+    }
+
+    for (var page = 1; page <= totalPages; page += 1) {
+      (function (pageNumber) {
+        var button = document.createElement("button");
+        button.type = "button";
+        button.className = "page-btn page-btn--number";
+        button.textContent = String(pageNumber);
+        button.setAttribute("aria-label", "第 " + pageNumber + " 页");
+        if (pageNumber === currentPage) {
+          button.setAttribute("aria-current", "page");
+        }
+        button.addEventListener("click", function () {
+          goToPage(pageNumber);
+        });
+        pageNumbers.appendChild(button);
+      })(page);
+    }
+  }
+
+  function goToPage(page) {
+    if (page < 1 || page > totalPages || page === currentPage) {
+      return;
+    }
+    currentPage = page;
+    renderArchive(true);
+  }
+
+  function renderArchive(shouldScroll) {
+    var matches = window.GUGAS.filter(matchesSearch);
+    updateCounts(matches);
+
+    var filtered =
+      currentFilter === "all"
+        ? matches
+        : matches.filter(function (guga) {
+            return guga.statusKey === currentFilter;
+          });
+
+    if (currentFilter !== "all" && filtered.length === 0) {
+      currentFilter = "all";
+      filtered = matches;
+    }
 
     filterButtons.forEach(function (button) {
       button.setAttribute(
         "aria-pressed",
-        button.getAttribute("data-filter") === filter ? "true" : "false"
+        button.getAttribute("data-filter") === currentFilter ? "true" : "false"
       );
     });
 
-    if (emptyState) {
-      emptyState.hidden = visible !== 0;
+    totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    if (currentPage > totalPages) {
+      currentPage = totalPages;
     }
 
-    grid.classList.toggle("is-single", visible === 1);
+    var start = (currentPage - 1) * PAGE_SIZE;
+    var pageItems = filtered.slice(start, start + PAGE_SIZE);
+    var pageIds = {};
+    pageItems.forEach(function (guga) {
+      pageIds[guga.id] = true;
+    });
 
-    liveRegion.textContent =
-      filter === "all"
-        ? "已显示全部 " + visible + " 只咕嘎"
-        : "已显示 " + visible + " 只咕嘎";
+    cards.forEach(function (card) {
+      var show = pageIds[card.getAttribute("data-id")] === true;
+      card.hidden = !show;
+      if (show && !firstRender) {
+        card.classList.add("is-visible");
+      }
+    });
+
+    grid.classList.toggle("is-single", pageItems.length === 1);
+
+    if (emptyState) {
+      emptyState.hidden = pageItems.length !== 0;
+    }
+
+    renderPagination();
+
+    var summary = searchQuery
+      ? "搜索到 " + filtered.length + " 只咕嘎"
+      : "共 " + filtered.length + " 只咕嘎";
+    if (totalPages > 1) {
+      summary += "，第 " + currentPage + " 页，共 " + totalPages + " 页";
+    }
+    liveRegion.textContent = summary;
+
+    if (shouldScroll && archiveSection) {
+      archiveSection.scrollIntoView({
+        behavior: reduceMotion ? "auto" : "smooth",
+        block: "start"
+      });
+    }
+
+    firstRender = false;
   }
 
   filterButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      applyFilter(button.getAttribute("data-filter"));
+      currentFilter = button.getAttribute("data-filter");
+      currentPage = 1;
+      renderArchive();
     });
   });
 
-  var observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.08, rootMargin: "0px 0px -4% 0px" }
-  );
-
-  if (reduceMotion || !("IntersectionObserver" in window)) {
-    cards.forEach(function (card) {
-      card.classList.add("is-visible");
-    });
-  } else {
-    cards.forEach(function (card) {
-      observer.observe(card);
+  if (searchInput) {
+    searchInput.addEventListener("input", function () {
+      searchQuery = searchInput.value.trim().toLowerCase();
+      currentPage = 1;
+      renderArchive();
     });
   }
+
+  if (prevPageButton) {
+    prevPageButton.addEventListener("click", function () {
+      goToPage(currentPage - 1);
+    });
+  }
+
+  if (nextPageButton) {
+    nextPageButton.addEventListener("click", function () {
+      goToPage(currentPage + 1);
+    });
+  }
+
+  renderArchive();
 })();

@@ -4,7 +4,17 @@
 
 线上地址：[https://oldwooood.github.io/GugaForever/](https://oldwooood.github.io/GugaForever/)
 
-站点是纯静态页面，不需要构建工具，可以直接部署到 GitHub Pages。
+GitHub 仓库：[https://github.com/OldWooood/GugaForever](https://github.com/OldWooood/GugaForever)
+
+站点是纯静态页面，不需要构建工具，可以直接部署到 GitHub Pages。首页支持按名字、UP主和特点搜索，按状态筛选，并且每页 2 只分页。
+
+## 技术栈
+
+- 原生 HTML5、CSS 和原生 JavaScript，没有框架，也没有构建步骤。
+- 档案数据在 `assets/js/data.js`，首页搜索、状态筛选和分页都在浏览器里完成。
+- 详情页是 `guga.html?id=...`，读取同一份数据。
+- 字体是小赖字体的 WOFF2 子集，图标是内联 SVG sprite，图片是本地 WebP。
+- 部署方式是 GitHub Actions 加 GitHub Pages。
 
 ## 本地预览
 
@@ -16,7 +26,7 @@ python3 -m http.server 4173
 
 ## 页面
 
-- `index.html`：首页、毕业档案、筛选和关于这里
+- `index.html`：首页、搜索、筛选、分页和关于这里
 - `guga.html?id=<id>`：每只咕嘎自己的档案页
 - `404.html`：GitHub Pages 的 404 页面
 - `robots.txt`：允许搜索引擎收录
@@ -36,17 +46,6 @@ python3 -m http.server 4173
 | 咕嘎师傅 | [StaySafeForever](https://space.bilibili.com/485520855) | 停更 | 2026.10.23 | [BV1dSny6uExs](https://www.bilibili.com/video/BV1dSny6uExs/) |
 
 这里的「毕业」主要指账号停更，不涉及 UP 主的个人状况。毕业时间以告别作品的发布日为准。如果其中一只复更，会从这里移出。
-
-### 校对记录：仍在更新，暂不收录
-
-以下账号在整理时仍在更新，所以没有放进停更档案：
-
-- [有点小懒耶](https://space.bilibili.com/352457287)
-- [业余的小白](https://space.bilibili.com/378501357)
-- [咕嘎小卖铺1](https://space.bilibili.com/3461565995026804)
-- [EG-瓜比](https://space.bilibili.com/484074483)
-
-等它们真正停更后，再把档案补进来。
 
 ## 添加或修改一只咕嘎
 
@@ -90,6 +89,8 @@ python3 -m http.server 4173
 
 新增图片建议先压到 1200px 宽的 WebP，再放到 `assets/images/`。详情页会使用 `imageLarge`，请保留一份更大的版本。如果卡片和详情页想用不同的画面，可以额外写 `detailAlt`。
 
+首页每页显示 2 只，数量在 `assets/js/app.js` 的 `PAGE_SIZE` 里调整。
+
 ## 参与贡献
 
 欢迎补档、校对和纠错。提交 PR 前请先读 [CONTRIBUTING.md](CONTRIBUTING.md)，并填写 `.github/PULL_REQUEST_TEMPLATE.md` 里的检查项。
@@ -99,7 +100,7 @@ python3 -m http.server 4173
 1. Fork 仓库，新建分支。
 2. 在 `assets/js/data.js` 里新增或修改一只咕嘎，把图片放进 `assets/images/`。
 3. 本地打开首页和详情页，检查桌面、手机和深浅色。
-4. 更新 README 的收录表或校对记录。
+4. 更新 README 的收录表。
 5. 提交 PR，写清楚资料来源和停更依据。
 
 只收已经确认停更的 B站账号。仍在更新的账号不要放进档案。如果只是更正资料、撤下图片或报告问题，直接提 Issue 就可以，不需要写 PR。
