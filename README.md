@@ -18,6 +18,8 @@ python3 -m http.server 4173
 - `guga.html?id=<id>`：每只咕嘎自己的档案页
 - `404.html`：GitHub Pages 的 404 页面
 - `robots.txt`：允许搜索引擎收录
+- `CONTRIBUTING.md`：贡献与 PR 指引
+- `.github/PULL_REQUEST_TEMPLATE.md`：PR 检查表
 - `assets/js/data.js`：所有档案数据
 - `assets/css/style.css`：样式、浅色和深色主题
 - `assets/fonts/xiaolai.woff2`：小赖字体子集
@@ -29,6 +31,7 @@ python3 -m http.server 4173
 | --- | --- | --- | --- | --- |
 | 奶瓶小咕嘎 | [我的猫叫缘缘](https://space.bilibili.com/2061750064) | 停更 | 2026.09.04 | [BV1y5ti62EVh](https://www.bilibili.com/video/BV1y5ti62EVh/) |
 | 小蓝嘎 | [布鲁小嘎嘎](https://space.bilibili.com/558382170) | 停更 | 2026.10.20 | [BV1gcnF6NEAC](https://www.bilibili.com/video/BV1gcnF6NEAC/) |
+| 咕嘎师傅 | [StaySafeForever](https://space.bilibili.com/485520855) | 停更 | 2026.10.23 | [BV1dSny6uExs](https://www.bilibili.com/video/BV1dSny6uExs/) |
 
 这里的「毕业」主要指账号停更，不涉及 UP 主的个人状况。毕业时间以告别作品的发布日为准。如果其中一只复更，会从这里移出。
 
@@ -64,6 +67,7 @@ python3 -m http.server 4173
   image: "assets/images/milk-1200.webp",
   imageLarge: "assets/images/milk-1800.webp",
   imageAlt: "图片替代文字",
+  detailAlt: "详情页图片替代文字", // 可选
   imagePosition: "50% 48%",    // object-position
   credit: "视频封面来自 B站 @我的猫叫缘缘",
   farewellTitle: "告别作品标题",
@@ -76,13 +80,27 @@ python3 -m http.server 4173
 }
 ```
 
-状态筛选对应关系（当前只确认了两只停更，完结和暂别筛选会自动隐藏）：
+状态筛选对应关系（当前只确认了三只停更，完结和暂别筛选会自动隐藏）：
 
 - `stopped`：停更或正式告别，筛选按钮显示为「停更」
 - `finished`：系列或某一季完结
 - `away`：暂别，并留下会回来的约定
 
-新增图片建议先压到 1200px 宽的 WebP，再放到 `assets/images/`。详情页会使用 `imageLarge`，请保留一份更大的版本。
+新增图片建议先压到 1200px 宽的 WebP，再放到 `assets/images/`。详情页会使用 `imageLarge`，请保留一份更大的版本。如果卡片和详情页想用不同的画面，可以额外写 `detailAlt`。
+
+## 参与贡献
+
+欢迎补档、校对和纠错。提交 PR 前请先读 [CONTRIBUTING.md](CONTRIBUTING.md)，并填写 `.github/PULL_REQUEST_TEMPLATE.md` 里的检查项。
+
+最简单的流程：
+
+1. Fork 仓库，新建分支。
+2. 在 `assets/js/data.js` 里新增或修改一只咕嘎，把图片放进 `assets/images/`。
+3. 本地打开首页和详情页，检查桌面、手机和深浅色。
+4. 更新 README 的收录表或校对记录。
+5. 提交 PR，写清楚资料来源和停更依据。
+
+只收已经确认停更的 B站账号。仍在更新的账号不要放进档案。如果只是更正资料、撤下图片或报告问题，直接提 Issue 就可以，不需要写 PR。
 
 ## 字体
 
@@ -100,9 +118,15 @@ python3 tools/subset-font.py /path/to/Xiaolai-Regular.ttf
 
 脚本会扫描 `index.html`、`guga.html`、`404.html`、`assets/js/*.js` 和 `assets/css/*.css` 中的文字，重新生成 `assets/fonts/xiaolai.woff2`。
 
+## 图标
+
+- 导航和界面图标：[Tabler Icons](https://tabler.io/icons)，MIT。
+- 企鹅标志和 favicon：本站自绘的简单企鹅图形。
+- B站图标：[Simple Icons](https://simpleicons.org/)，CC0。
+
 ## 部署到 GitHub Pages
 
-仓库里已经包含 `.github/workflows/pages.yml` 和 `.nojekyll`。当前目录还不是 git 仓库，第一次推送可以先执行：
+仓库里已经包含 `.github/workflows/pages.yml` 和 `.nojekyll`。如果这是一个新仓库，第一次推送可以执行：
 
 ```bash
 git init
@@ -113,7 +137,7 @@ git remote add origin <your-repo-url>
 git push -u origin main
 ```
 
-然后按下面的方式开启 Pages。
+如果 Pages 还没有开启，按下面的方式设置。
 
 ### 方式一：GitHub Actions
 

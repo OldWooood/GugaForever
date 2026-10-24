@@ -85,7 +85,7 @@
   var image = document.getElementById("detailImage");
   if (image) {
     image.src = guga.imageLarge || guga.image;
-    image.alt = guga.imageAlt;
+    image.alt = guga.detailAlt || guga.imageAlt;
     image.fetchPriority = "high";
     image.style.objectPosition = guga.imagePosition || "50% 50%";
   }

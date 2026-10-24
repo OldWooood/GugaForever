@@ -61,5 +61,33 @@ window.GUGAS = [
     quoteSource: "UP主在告别视频里写",
     note: "等它回来，这一页再改。",
     statusNote: "UP主已发布告别作品，账号目前停更。"
+  },
+  {
+    id: "staysafe",
+    name: "咕嘎师傅",
+    handle: "StaySafeForever",
+    uid: "485520855",
+    spaceUrl: "https://space.bilibili.com/485520855",
+    statusKey: "stopped",
+    statusLabel: "停更",
+    date: "2026-10-23",
+    dateLabel: "2026.10.23",
+    dateHuman: "2026 年 10 月 23 日",
+    traits: ["掌心大小", "咕嘎师傅", "星星告别"],
+    description:
+      "掌心大小的一只咕嘎师傅，戴着小企鹅帽子和黄围巾，被好好捧在手里。它和宝宝一起出现，最后一条更新里，两只小企鹅牵着手，走上了一条发光的星梯。UP主在简介里说，从咕咕嘎嘎创作毕业了。",
+    image: "assets/images/staysafe-card-1200.webp",
+    imageLarge: "assets/images/staysafe-detail-1800.webp",
+    imageAlt: "掌心大小的咕嘎师傅戴着企鹅帽子和黄围巾",
+    detailAlt: "两只小企鹅牵着手，走上发光的星梯",
+    imagePosition: "50% 50%",
+    credit: "视频封面来自 B站 @StaySafeForever",
+    farewellTitle: "永别啦！再也不见啦咕咕嘎嘎！",
+    farewellUrl: "https://www.bilibili.com/video/BV1dSny6uExs/",
+    bvid: "BV1dSny6uExs",
+    quote: "从咕咕嘎嘎创作毕业了！",
+    quoteSource: "UP主在告别视频简介里写",
+    note: "这次是真的毕业了。",
+    statusNote: "UP主在告别视频里明确表示不再创作咕咕嘎嘎视频，账号目前停更。"
   }
 ];

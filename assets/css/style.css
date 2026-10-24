@@ -206,6 +206,11 @@ button {
   box-shadow: inset 0 0 0 1px rgba(28, 42, 48, 0.08);
 }
 
+.brand__mark .icon {
+  width: 26px;
+  height: 26px;
+}
+
 .brand__text {
   display: flex;
   flex-direction: column;
@@ -670,6 +675,13 @@ button {
 
 .guga-card:nth-child(even) {
   --shift: 46px;
+}
+
+.archive-grid > .guga-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  width: min(100%, 660px);
+  justify-self: center;
+  --shift: 0px;
 }
 
 .archive-grid.is-single {
@@ -1487,6 +1499,12 @@ button {
     padding-bottom: 0;
   }
 
+  .archive-grid > .guga-card:last-child:nth-child(odd) {
+    grid-column: auto;
+    width: auto;
+    justify-self: stretch;
+  }
+
   .guga-card {
     --shift: 0px !important;
   }
@@ -1580,6 +1598,11 @@ button {
   .brand__mark {
     width: 31px;
     height: 31px;
+  }
+
+  .brand__mark .icon {
+    width: 24px;
+    height: 24px;
   }
 
   .nav__link {
