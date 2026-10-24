@@ -84,7 +84,7 @@ export const gugas: Guga[] = [
     dateHuman: "2026 年 10 月 20 日",
     traits: ["蓝色企鹅服", "狗狗搭子", "会回来"],
     description:
-      "穿蓝色企鹅服的小嘎，和一只黄狗一起住在有院子的家里。它会趴在狗狗背上，也会认真吃饭。视频最后，它说如果大家还愿意等，它一定会回来。这一页先记下它的停更，等它真的回来再改。",
+      "穿蓝色企鹅服的小嘎，和一只黄狗一起住在有院子的家里。Ta会趴在狗狗背上，也会认真吃饭。视频最后，Ta说如果大家还愿意等，Ta一定会回来。这一页先记下Ta的停更，等Ta真的回来再改。",
     image: blueDogCard,
     imageLarge: blueDogPortrait,
     imageAlt: "蓝色企鹅服的小蓝嘎趴在狗狗背上",
@@ -95,7 +95,7 @@ export const gugas: Guga[] = [
     bvid: "BV1gcnF6NEAC",
     quote: "倘若今后你们还愿意陪伴，我便一定会回来。",
     quoteSource: "UP主在告别视频里写",
-    note: "等它回来，这一页再改。",
+    note: "等Ta回来，这一页再改。",
     statusNote: "UP主已发布告别作品，账号目前停更。"
   },
   {
@@ -111,7 +111,7 @@ export const gugas: Guga[] = [
     dateHuman: "2026 年 10 月 23 日",
     traits: ["掌心大小", "咕嘎师傅", "星星告别"],
     description:
-      "掌心大小的一只咕嘎师傅，戴着小企鹅帽子和黄围巾，被好好捧在手里。它和宝宝一起出现，最后一条更新里，两只小企鹅牵着手，走上了一条发光的星梯。UP主在简介里说，从咕咕嘎嘎创作毕业了。",
+      "掌心大小的一只咕嘎师傅，戴着小企鹅帽子和黄围巾，被好好捧在手里。Ta和宝宝一起出现，最后一条更新里，两只小企鹅牵着手，走上了一条发光的星梯。UP主在简介里说，从咕咕嘎嘎创作毕业了。",
     image: staysafeCard,
     imageLarge: staysafeDetail,
     imageAlt: "掌心大小的咕嘎师傅戴着企鹅帽子和黄围巾",

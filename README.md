@@ -1,6 +1,6 @@
 # 咕嘎永远 / Guga Forever
 
-一个非官方的 B站咕嘎停更纪念档案。只收已经确认停更的咕嘎，留下它们的特点、原地、毕业时间和最后出现的影片。
+一个非官方的 B站咕嘎停更纪念档案。只收已经确认停更的咕嘎，留下Ta们的特点、原地、毕业时间和最后出现的影片。
 
 线上地址：[https://oldwooood.github.io/GugaForever/](https://oldwooood.github.io/GugaForever/)
 
