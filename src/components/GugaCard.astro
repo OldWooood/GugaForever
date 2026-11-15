@@ -8,9 +8,10 @@ import Icon from "./Icon.astro";
 interface Props {
   guga: Guga;
   hidden?: boolean;
+  index?: number;
 }
 
-const { guga, hidden = false } = Astro.props;
+const { guga, hidden = false, index = 1 } = Astro.props;
 
 const searchText = [
   guga.name,
@@ -53,7 +54,10 @@ if (imageWidths.length === 0) {
   </div>
   <div class="guga-card__body">
     <div class="guga-card__meta">
-      <span class={`status status--${guga.statusKey}`}>{guga.statusLabel}</span>
+      <div class="guga-card__meta-left">
+        <span class="guga-card__no">{String(index).padStart(2, "0")}</span>
+        <span class={`status status--${guga.statusKey}`}>{guga.statusLabel}</span>
+      </div>
       <time datetime={guga.date}>毕业 {guga.dateLabel}</time>
     </div>
     <h3>{guga.name}</h3>

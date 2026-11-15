@@ -71,7 +71,7 @@ const initialPageItems = gugas.slice(0, PAGE_SIZE);
     >
       {
         gugas.map((guga, index) => (
-          <GugaCard guga={guga} hidden={index >= PAGE_SIZE} />
+          <GugaCard guga={guga} index={index + 1} hidden={index >= PAGE_SIZE} />
         ))
       }
     </div>

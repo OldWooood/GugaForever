@@ -21,6 +21,7 @@ if (!guga) {
 }
 
 const neighbors = getGugaNeighbors(guga.id)!;
+const gugaIndex = gugas.findIndex((item) => item.id === guga.id) + 1;
 const title = `${guga.name}的毕业档案｜咕嘎永远`;
 const imageSrc = absoluteAsset(guga.imageLarge.src);
 const detailWidths = [480, 720, 960, 1200].filter(
@@ -77,6 +78,12 @@ if (detailWidths.length === 0) {
                   <Icon name="bilibili" size={18} />
                 </a>
               </div>
+
+              <p class="detail__index">
+                <span>档案编号</span>
+                <strong>{String(gugaIndex).padStart(2, "0")}</strong>
+                <span>/ {String(gugas.length).padStart(2, "0")}</span>
+              </p>
             </div>
 
             <div class="detail__media">

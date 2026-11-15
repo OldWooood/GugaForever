@@ -1535,3 +1535,159 @@ html.m-enter .photo--pair {
     text-align: left;
   }
 }
+
+/* Archive index language: 01 / 02 / 03 across the hero, cards and detail */
+.hero__index {
+  max-width: 430px;
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.hero__index-label {
+  margin: 0 0 6px;
+  color: var(--ink-2);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.hero__index ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero__index li {
+  border-bottom: 1px solid var(--line);
+}
+
+.hero__index a {
+  display: grid;
+  grid-template-columns: 26px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 38px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.hero__index a:hover .hero__index-name {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--accent-strong);
+}
+
+.hero__index-no {
+  color: var(--ink);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.hero__index-name {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.hero__index time {
+  color: var(--ink-2);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.guga-card__meta-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.guga-card__no {
+  color: var(--ink-2);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.detail__index {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  max-width: 300px;
+  margin: 30px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.detail__index span {
+  color: var(--ink-2);
+  font-size: 12px;
+}
+
+.detail__index strong {
+  color: var(--ink);
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.footer__wordmark-en {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--ink-2);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+}
+
+@media (max-width: 720px) {
+  .hero__index {
+    margin-top: 18px;
+  }
+
+  .hero__index a {
+    min-height: 44px;
+  }
+
+  .detail__index {
+    display: none;
+  }
+
+  .footer__wordmark-en {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    height: auto;
+    min-height: 100svh;
+  }
+}
+
+/* The archive index is a desktop and phone detail; the tablet hero is too tight for it. */
+@media (min-width: 721px) and (max-width: 1279px) {
+  .hero__index {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero__facts {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .guga-card__media {
+    aspect-ratio: 5 / 4;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1100px) {
+  .about__notes {
+    gap: 8px;
+    margin-top: 20px;
+  }
+}
