@@ -28,7 +28,7 @@ if (grid) {
   const liveRegion = document.createElement("p");
   liveRegion.className = "sr-only";
   liveRegion.setAttribute("aria-live", "polite");
-  document.body.appendChild(liveRegion);
+  (document.getElementById("archive") ?? document.body).appendChild(liveRegion);
 
   let currentFilter = "all";
   let currentPage = 1;

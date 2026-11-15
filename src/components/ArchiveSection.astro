@@ -24,18 +24,20 @@ const initialPageItems = gugas.slice(0, PAGE_SIZE);
     </div>
 
     <div class="archive-toolbar">
-      <label class="search-field" for="archiveSearch">
-        <Icon name="search" size={18} />
-        <span class="sr-only">搜索档案</span>
-        <input
-          id="archiveSearch"
-          type="search"
-          placeholder="搜索名字、UP主或特点"
-          autocomplete="off"
-          spellcheck="false"
-          aria-controls="archiveGrid"
-        />
-      </label>
+      <div class="search-box">
+        <label class="search-label" for="archiveSearch">搜索档案</label>
+        <div class="search-field">
+          <Icon name="search" size={18} />
+          <input
+            id="archiveSearch"
+            type="search"
+            placeholder="搜索名字、UP主或特点"
+            autocomplete="off"
+            spellcheck="false"
+            aria-controls="archiveGrid"
+          />
+        </div>
+      </div>
       <div class="filters" id="filters" role="group" aria-label="筛选档案">
         <button
           class="filter"

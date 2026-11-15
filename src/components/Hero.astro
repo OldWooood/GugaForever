@@ -1,43 +1,25 @@
 ---
 import { Image } from "astro:assets";
 
+import bluePortrait from "../assets/images/blue-dog-portrait.webp";
+import staysafeDetail from "../assets/images/staysafe-detail-1800.webp";
 import { gugas } from "../data/guga";
 import Icon from "./Icon.astro";
 
-const milk = gugas.find((guga) => guga.id === "milk")!;
+const staysafe = gugas.find((guga) => guga.id === "staysafe")!;
 const blue = gugas.find((guga) => guga.id === "blue")!;
-
-const snowflakes = [
-  { x: "7%", y: "20%", duration: "11s", delay: "-2s" },
-  { x: "18%", y: "70%", duration: "14s", delay: "-7s" },
-  { x: "31%", y: "42%", duration: "12s", delay: "-4s" },
-  { x: "48%", y: "16%", duration: "15s", delay: "-9s" },
-  { x: "62%", y: "78%", duration: "10s", delay: "-3s" },
-  { x: "74%", y: "32%", duration: "13s", delay: "-6s" },
-  { x: "86%", y: "62%", duration: "16s", delay: "-1s" },
-  { x: "93%", y: "12%", duration: "12s", delay: "-8s" }
-];
 ---
 
-<section class="hero" aria-labelledby="heroTitle">
-  <div class="hero__sky" aria-hidden="true">
-    {
-      snowflakes.map((flake) => (
-        <span
-          class="snow"
-          style={`--x: ${flake.x}; --y: ${flake.y}; --d: ${flake.duration}; --delay: ${flake.delay};`}
-        />
-      ))
-    }
-  </div>
-  <div class="wrap hero__inner">
+<section class="hero" data-enter aria-labelledby="heroTitle">
+  <div class="wrap">
+    <div class="hero-text hero__inner">
     <div class="hero__copy">
       <p class="eyebrow">
         <Icon name="snowflake" size={16} />
-        B站咕嘎 / 停更纪念档案
+        B站 · 非官方粉丝档案
       </p>
-      <h1 id="heroTitle">Ta们从首页<br /><span class="mark">毕业了。</span></h1>
-      <p class="hero__sub">B站上已经停更的咕嘎，和Ta们留下的最后样子。</p>
+      <h1 id="heroTitle">B站停更咕嘎<br /><span class="mark">纪念档案</span></h1>
+      <p class="hero__sub">Ta们从首页毕业了。B站上已经停更的咕嘎，和Ta们留下的最后样子。</p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="#archive">
           翻翻毕业档案
@@ -46,34 +28,34 @@ const snowflakes = [
       </div>
     </div>
 
-    <div class="hero__photos" role="group" aria-label="两只咕嘎的纪念照片">
-      <span class="hero__orb" aria-hidden="true"></span>
-      <figure class="photo photo--main">
-        <span class="tape" aria-hidden="true"></span>
+    <figure class="photo photo--pair" aria-label="两只咕嘎的纪念照片">
+      <span class="tape" aria-hidden="true"></span>
+      <div class="photo__pair">
         <Image
-          src={milk.image}
-          alt={milk.imageAlt}
-          widths={[600, 900, 1200]}
-          sizes="(max-width: 760px) 70vw, 38vw"
+          src={staysafeDetail}
+          alt={staysafe.detailAlt ?? staysafe.imageAlt}
+          widths={[480, 720, 960, 1200]}
+          sizes="(max-width: 980px) 90vw, 43vw"
           loading="eager"
           fetchpriority="high"
           decoding="async"
         />
-      </figure>
-      <figure class="photo photo--small">
-        <span class="tape" aria-hidden="true"></span>
         <Image
-          src={blue.image}
-          alt={blue.imageAlt}
+          src={bluePortrait}
+          alt={blue.detailAlt ?? blue.imageAlt}
           widths={[360, 540, 720]}
-          sizes="(max-width: 760px) 46vw, 24vw"
-          loading="lazy"
+          sizes="(max-width: 980px) 90vw, 43vw"
+          loading="eager"
           decoding="async"
         />
-      </figure>
-      <p class="hero__credit">
-        图源：B站 <a href="https://space.bilibili.com/2061750064" target="_blank" rel="noopener noreferrer">@我的猫叫缘缘</a> / <a href="https://space.bilibili.com/558382170" target="_blank" rel="noopener noreferrer">@布鲁小嘎嘎</a>
-      </p>
+      </div>
+    </figure>
+
+    <div class="hero__facts">
+      <div><span>收录</span><strong>3 只咕嘎</strong></div>
+      <div><span>停更</span><strong>2026.09–10</strong></div>
+      <div><span>最近毕业</span><strong>2026.10.23</strong></div>
+    </div>
     </div>
   </div>
 </section>

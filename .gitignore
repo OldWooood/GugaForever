@@ -9,3 +9,6 @@ _site/
 .env.*
 tools/Xiaolai-Regular.ttf
 *.ttf
+
+# taste-skill audit artifacts
+.taste-skill/

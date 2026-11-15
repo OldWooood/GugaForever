@@ -1,37 +1,75 @@
 ---
+import { Image } from "astro:assets";
+
+import brandHead from "../assets/images/guga-brand-head.png";
 import { SITE } from "../config";
 import Icon from "./Icon.astro";
 ---
 
-<section class="section about" id="about" aria-labelledby="aboutTitle">
-  <div class="wrap">
-    <div class="about__intro">
-      <h2 id="aboutTitle">停更不是消失。</h2>
-      <p>只是更新停在了某一天。这里只收已经确认停更的咕嘎，留下Ta们最后出现的样子。想Ta们的时候，就来坐一会儿。</p>
-    </div>
-    <div class="about__notes">
-      <article>
-        <h3>关于「毕业」</h3>
-        <p>在这里，「毕业」主要指账号停更。系列完结或暂别会单独说明，不会和停更混在一起。档案名是本站为了区分起的称呼，不一定是官方名字。毕业时间以告别作品的发布日为准，档案更新于 {SITE.updatedLabel}。目前收入档案的都是已确认停更的账号，如果其中一只复更，会从这里移出。</p>
-      </article>
-      <article>
-        <h3>关于图片与影片</h3>
-        <p>图片来自 B站公开视频的封面或画面，版权归原 UP 主所有。本站是非官方粉丝档案，不作商用。若需更正或撤下，请联系维护者。</p>
-      </article>
-    </div>
-    <p class="about__more">
-      <a
-        href="https://search.bilibili.com/all?keyword=%E5%92%95%E5%92%95%E5%98%8E%E5%98%8E"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        去 B站 看看还在更新的咕嘎
-        <Icon name="arrow-up-right" size={16} />
+<section class="section about" id="about" data-moment="word-highlight" aria-labelledby="aboutTitle">
+  <div class="wrap about__grid">
+    <div class="about__main">
+      <div class="about__intro">
+        <h2 id="aboutTitle" class="mo-wh__text">停更不是消失。只是更新停在了某一天。</h2>
+        <p>这里只收已经确认停更的咕嘎，留下Ta们最后出现的样子。想Ta们的时候，就来坐一会儿。</p>
+      </div>
+
+      <div class="about__notes">
+        <article>
+          <h3>关于「毕业」</h3>
+          <p>在这里，「毕业」主要指账号停更。系列完结或暂别会单独说明，档案名是本站为了区分起的称呼。毕业时间以告别作品的发布日为准，更新于 {SITE.updatedLabel}。复更的咕嘎会从这里移出。</p>
+        </article>
+        <article>
+          <h3>关于图片与影片</h3>
+          <p>图片来自 B站公开视频的封面或画面，版权归原 UP 主所有。本站是非官方粉丝档案，不作商用。若需更正或撤下，请联系维护者。</p>
+        </article>
+      </div>
+
+      <p class="about__more">
+        <a
+          href="https://search.bilibili.com/all?keyword=%E5%92%95%E5%92%95%E5%98%8E%E5%98%8E"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          去 B站 看看还在更新的咕嘎
+          <Icon name="arrow-up-right" size={16} />
+        </a>
+        <a href={SITE.contributingUrl} target="_blank" rel="noopener noreferrer">
+          在 GitHub 参与补档
+          <Icon name="brand-github" size={16} />
+        </a>
+      </p>
+      <a class="btn btn--primary about__cta" href="#archive">
+        翻翻毕业档案
+        <Icon name="arrow-down" size={18} />
       </a>
-      <a href={SITE.contributingUrl} target="_blank" rel="noopener noreferrer">
-        在 GitHub 参与补档
-        <Icon name="brand-github" size={16} />
-      </a>
-    </p>
+    </div>
+
+    <aside class="about__aside" aria-label="档案速览">
+      <figure class="about__photo">
+        <Image
+          src={brandHead}
+          alt="咕嘎永远的档案标志"
+          widths={[256, 384, 512]}
+          sizes="(max-width: 720px) 100vw, 40vw"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <dl class="about__facts">
+        <div>
+          <dt>收录</dt>
+          <dd>3 只咕嘎</dd>
+        </div>
+        <div>
+          <dt>停更</dt>
+          <dd>2026.09–2026.10</dd>
+        </div>
+        <div>
+          <dt>档案更新</dt>
+          <dd>{SITE.updatedLabel}</dd>
+        </div>
+      </dl>
+    </aside>
   </div>
 </section>
