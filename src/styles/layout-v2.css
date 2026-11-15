@@ -454,8 +454,8 @@ html.m-enter .hero__photos { animation-delay: 140ms; }
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
 }
 
 .about__facts {
@@ -1158,13 +1158,19 @@ html.m-enter .photo--pair {
 }
 
 .detail-facts {
+  position: relative;
   height: 100svh;
   padding: 96px 0 48px;
+  overflow: hidden;
 }
 
 .detail-hero .wrap,
 .detail-facts .wrap {
   height: 100%;
+}
+
+.detail-hero .hero-text {
+  display: block;
 }
 
 .detail__grid {
@@ -1176,22 +1182,41 @@ html.m-enter .photo--pair {
 
 .detail__copy {
   grid-column: 1 / span 6;
+  padding-top: 13px;
 }
 
 .detail__media {
+  display: block;
   grid-column: 7 / span 6;
   position: static;
   width: 100%;
   margin: 0;
+  padding-top: 16px;
 }
 
 .detail-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   margin: 0;
+  padding: 0;
+  aspect-ratio: var(--detail-ratio, 4 / 3);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--card);
 }
 
 .detail-photo img {
-  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  border-radius: var(--radius-photo);
+  background: var(--paper-2);
 }
 
 .detail h1 {
@@ -1202,6 +1227,13 @@ html.m-enter .photo--pair {
 
 .detail-status {
   margin-top: 0;
+}
+
+.detail-date {
+  margin: 6px 0 0;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .detail-lead {
@@ -1215,8 +1247,13 @@ html.m-enter .photo--pair {
   margin-top: 24px;
 }
 
+.detail-facts__head {
+  display: block;
+  margin-bottom: 24px;
+}
+
 .detail-facts h2 {
-  margin: 0 0 24px;
+  margin: 0;
   font-size: clamp(30px, 3.4vw, 48px);
   font-weight: 400;
   line-height: 1.15;
@@ -1224,10 +1261,31 @@ html.m-enter .photo--pair {
 
 .detail-facts .facts {
   margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
 }
 
 .detail-facts .pager {
   margin-top: 32px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.detail-facts .status-note {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+@media (min-width: 1280px) {
+  .detail__media {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .detail-photo {
+    width: 519px;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1238,7 +1296,7 @@ html.m-enter .photo--pair {
 
   .detail-facts {
     height: calc(2 * 100svh);
-    padding: 96px 0 48px;
+    padding: 196px 0 48px;
   }
 
   .detail__copy,
@@ -1251,8 +1309,19 @@ html.m-enter .photo--pair {
     gap: 20px;
   }
 
+  .detail__copy,
+  .detail__media {
+    padding-top: 0;
+  }
+
+  .detail-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
   .detail-photo img {
-    aspect-ratio: 3 / 2;
+    max-height: 100%;
+    object-fit: contain;
   }
 
   .detail h1 {
@@ -1276,105 +1345,19 @@ html.m-enter .photo--pair {
     padding: 0 10px;
     font-size: 14px;
   }
-}
 
-/* Detail page refinements */
-.detail-hero .hero-text {
-  display: block;
-}
-
-.detail__copy {
-  padding-top: 13px;
-}
-
-.detail-photo img {
-  aspect-ratio: 16 / 9;
-}
-
-.detail-facts__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-
-.detail-facts__head h2 {
-  margin: 0;
-}
-
-.detail-date {
-  margin: 6px 0 0;
-  color: var(--ink-2);
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.detail-facts .facts {
-  padding-top: 0;
-  border-top: 0;
-}
-
-.detail-facts .pager {
-  padding-top: 0;
-  border-top: 0;
-}
-
-.detail-facts .status-note {
-  padding: 0;
-  border: 0;
-  background: transparent;
-}
-
-@media (max-width: 720px) {
-  .detail-facts {
-    height: 100svh;
+  .pager {
+    flex-direction: column;
+    gap: 12px;
   }
 
-  .detail__copy {
-    padding-top: 0;
+  .pager__link,
+  .pager__link--next {
+    max-width: 100%;
+    margin-left: 0;
+    align-items: flex-start;
+    text-align: left;
   }
-
-  .detail-photo img {
-    aspect-ratio: 3 / 2;
-  }
-}
-
-/* Detail: align the split, keep the facts on one screen, place the mark as a visual */
-.detail-photo {
-  padding: 0;
-}
-
-.detail__copy {
-  padding-top: 0;
-}
-
-.detail-facts {
-  position: relative;
-  overflow: hidden;
-}
-
-.detail-facts__head {
-  display: block;
-  margin-bottom: 24px;
-}
-
-.detail-facts__mark {
-  position: absolute;
-  top: 96px;
-  right: 80px;
-  width: 140px;
-  height: 140px;
-  border-radius: 24px;
-  opacity: 0.18;
-  pointer-events: none;
-}
-
-@media (max-width: 720px) {
-  .detail-photo img {
-    aspect-ratio: 16 / 9;
-  }
-
 }
 
 /* Detail facts: facts left, the archive mark right */
@@ -1531,5 +1514,24 @@ html.m-enter .photo--pair {
   .not-found {
     height: auto;
     min-height: 100svh;
+  }
+}
+
+@media (max-width: 720px) {
+  .detail-facts {
+    padding-top: 196px;
+  }
+
+  .pager {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pager__link,
+  .pager__link--next {
+    max-width: 100%;
+    margin-left: 0;
+    align-items: flex-start;
+    text-align: left;
   }
 }

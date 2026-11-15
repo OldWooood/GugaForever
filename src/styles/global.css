@@ -1039,9 +1039,10 @@ button {
 }
 
 .detail-quote {
-  margin: 36px 0 0;
-  padding: 8px 0 8px 22px;
-  border-left: 3px solid var(--accent);
+  margin: 30px 0 0;
+  padding: 18px 0 0;
+  border-top: 2px solid var(--accent);
+  border-left: 0;
   font-style: normal;
 }
 

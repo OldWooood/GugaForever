@@ -1,13 +1,13 @@
 ---
 import { Image } from "astro:assets";
 
-import bluePortrait from "../assets/images/blue-dog-portrait.webp";
+import milkDetail from "../assets/images/milk-1800.webp";
 import staysafeDetail from "../assets/images/staysafe-detail-1800.webp";
 import { gugas } from "../data/guga";
 import Icon from "./Icon.astro";
 
 const staysafe = gugas.find((guga) => guga.id === "staysafe")!;
-const blue = gugas.find((guga) => guga.id === "blue")!;
+const milk = gugas.find((guga) => guga.id === "milk")!;
 ---
 
 <section class="hero" data-enter aria-labelledby="heroTitle">
@@ -41,8 +41,8 @@ const blue = gugas.find((guga) => guga.id === "blue")!;
           decoding="async"
         />
         <Image
-          src={bluePortrait}
-          alt={blue.detailAlt ?? blue.imageAlt}
+          src={milkDetail}
+          alt={milk.detailAlt ?? milk.imageAlt}
           widths={[360, 540, 720]}
           sizes="(max-width: 980px) 90vw, 43vw"
           loading="eager"
